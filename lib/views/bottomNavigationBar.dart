@@ -7,27 +7,25 @@ import 'package:weather_app/views/settings.dart';
 
 class NavBar extends StatefulWidget {
   List<WeatherModel> weatherModel = [];
-  NavBar({
-    super.key,
-    required this.weatherModel,
-  });
+
+  NavBar({super.key, required this.weatherModel});
 
   @override
   State<NavBar> createState() => _NavBarState();
 }
 
 class _NavBarState extends State<NavBar> {
-  final int _currentIndex = 0;
+  int _currentIndex = 0;
+
   late List<Widget> pages;
+
   @override
   void initState() {
     pages = [
-      Home(
-        weatherModel: widget.weatherModel,
-      ),
+      Home(weatherModel: widget.weatherModel),
       const Search(),
-      const Forecast(),
-      const Settings()
+      Forecast(weatherModel: widget.weatherModel),
+      const Settings(),
     ];
     super.initState();
   }
@@ -38,6 +36,7 @@ class _NavBarState extends State<NavBar> {
     double myWidth = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
+        backgroundColor: const Color(0xff060720),
         body: pages.elementAt(_currentIndex),
         bottomNavigationBar: BottomNavigationBar(
           backgroundColor: const Color(0xff060720),
@@ -45,6 +44,11 @@ class _NavBarState extends State<NavBar> {
           showSelectedLabels: false,
           showUnselectedLabels: false,
           type: BottomNavigationBarType.fixed,
+          onTap: (value) {
+            setState(() {
+              _currentIndex = value;
+            });
+          },
           items: [
             BottomNavigationBarItem(
               icon: Image.asset(
@@ -56,7 +60,7 @@ class _NavBarState extends State<NavBar> {
               activeIcon: Image.asset(
                 'assets/icons/1.1.png',
                 height: myHeight * 0.03,
-                color: Colors.grey.withOpacity(0.5),
+                color: Colors.white,
               ),
             ),
             BottomNavigationBarItem(
@@ -69,7 +73,7 @@ class _NavBarState extends State<NavBar> {
               activeIcon: Image.asset(
                 'assets/icons/2.1.png',
                 height: myHeight * 0.03,
-                color: Colors.grey.withOpacity(0.5),
+                color: Colors.white,
               ),
             ),
             BottomNavigationBarItem(
@@ -82,7 +86,7 @@ class _NavBarState extends State<NavBar> {
               activeIcon: Image.asset(
                 'assets/icons/3.1.png',
                 height: myHeight * 0.03,
-                color: Colors.grey.withOpacity(0.5),
+                color: Colors.white,
               ),
             ),
             BottomNavigationBarItem(
@@ -95,7 +99,7 @@ class _NavBarState extends State<NavBar> {
               activeIcon: Image.asset(
                 'assets/icons/4.1.png',
                 height: myHeight * 0.03,
-                color: Colors.grey.withOpacity(0.5),
+                color: Colors.white,
               ),
             ),
           ],
