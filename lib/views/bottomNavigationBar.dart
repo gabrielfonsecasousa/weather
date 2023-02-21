@@ -23,7 +23,7 @@ class _NavBarState extends State<NavBar> {
   void initState() {
     pages = [
       Home(weatherModel: widget.weatherModel),
-      const Search(),
+      Search(weatherModel: widget.weatherModel),
       Forecast(weatherModel: widget.weatherModel),
       const Settings(),
     ];
